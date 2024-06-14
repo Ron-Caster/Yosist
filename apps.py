@@ -2,11 +2,9 @@ import os
 import json
 import subprocess
 from groq import Groq
-
 # Set up the Groq API client
 client = Groq()
 MODEL = 'llama3-70b-8192'
-
 # Define the function to open an application
 def open_app(app_name):
     app_map = {
@@ -33,7 +31,6 @@ def open_app(app_name):
         "spotify": "Spotify.exe"
         # Add more apps as needed
     }
-    
     if app_name.lower() in app_map:
         executable_path = app_map[app_name.lower()]
         try:
@@ -48,18 +45,13 @@ def open_app(app_name):
             return f"Error opening {app_name}: {str(e)}"
     else:
         return f"Unsupported app: {app_name}"
-
 # Define the conversation function
 def run_conversation():
     conversation_history = []
-    
     while True:
         user_prompt = input("Please enter your prompt: ")
-        
         conversation_history.append({"role": "user", "content": user_prompt})
-        
         messages = conversation_history.copy()
-        
         tools = [
             {
                 "type": "function",
@@ -79,7 +71,6 @@ def run_conversation():
                 },
             }
         ]
-        
         response = client.chat.completions.create(
             model=MODEL,
             messages=messages,
@@ -87,11 +78,6 @@ def run_conversation():
             tool_choice="auto",
             max_tokens=4096
         )
-
-        # Print the response to debug
-        print("Response:", response)
-
-        # Check if the tool_calls attribute exists
         if hasattr(response.choices[0].message, 'tool_calls') and response.choices[0].message.tool_calls:
             tool_call = response.choices[0].message.tool_calls[0]
             arguments = json.loads(tool_call.function.arguments)  # Parse the arguments string as JSON
@@ -102,6 +88,5 @@ def run_conversation():
         else:
             print("No tool call was made in the response.")
             conversation_history.append({"role": "assistant", "content": "No tool call was made in the response."})
-
 if __name__ == "__main__":
     run_conversation()
