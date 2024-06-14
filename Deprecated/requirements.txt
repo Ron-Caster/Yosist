@@ -1,0 +1,5 @@
+SpeechRecognition==3.8.1
+textblob==0.15.3
+gTTS==2.2.3
+pywin32==301
+wxPython==4.1.1
