@@ -1,38 +1,78 @@
-# Application Launcher Chatbot (As of Now)
 
-The Application Launcher Chatbot is a Python script that allows users to interact with a chatbot to open various applications based on their prompts. The chatbot utilizes the Groq API client to generate responses and facilitate the opening of specified applications.
+# Voice Assistant
 
-## Project Overview
+This project implements a voice assistant that uses speech-to-text (STT) for recognizing spoken queries, a large language model (LLM) for generating responses, and text-to-speech (TTS) for vocalizing the responses. The components are modularized into three separate scripts focusing on audio recording and transcription, querying a language model, and text-to-speech synthesis.
 
-The chatbot provides a conversational interface where users can input the name of an application they want to open, and the chatbot will attempt to launch the specified application. The script includes a predefined mapping of application names to their respective executable paths for seamless application launching.
+## Overview
 
-## Features
+- **Audio Recording and Transcription**: Records audio from the microphone and transcribes it using Whisper.
+- **Querying Groq Model**: Sends the transcribed text to the Groq model to get a response.
+- **Text-to-Speech**: Converts the text response from the model into speech using pyttsx3.
 
-- User-friendly chatbot interface for opening applications
-- Integration with the Groq API for natural language processing
-- Customizable application mapping for easy addition of new applications
-- Error handling for unsupported applications or launch failures
+## Modules
+
+1. `whisper_module.py`: Handles audio recording and transcription using Whisper.
+2. `groq_module.py`: Manages querying the Groq model and chat history.
+3. `tts_module.py`: Converts text responses into speech using pyttsx3.
+4. `main.py`: Coordinates the other modules to create a seamless voice assistant experience.
 
 ## Getting Started
 
-To get started with the Application Launcher Chatbot, ensure you have Python 3.x installed along with the necessary dependencies. Update the `app_map` dictionary in the script with the paths to the applications you wish to be able to open. Run the script and start interacting with the chatbot by providing the name of the application you want to open.
-
-## Dependencies
+### Prerequisites
 
 - Python 3.x
-- Groq API client library
-- Required applications installed on the system
+- Required Python packages:
+  - pyaudio
+  - wave
+  - pyttsx3
+  - whisper
+  - groq
+
+Install the required packages using pip:
+```sh
+pip install pyaudio wave pyttsx3 whisper groq
+```
+
+### Running the Voice Assistant
+
+Run the `main.py` script to start the voice assistant:
+```sh
+python main.py
+```
 
 ## Usage
 
-1. Run the script and follow the prompts to interact with the chatbot.
-2. Input the name of the application you want to open when prompted.
-3. The chatbot will make an attempt to open the specified application based on the provided name.
+### Testing Individual Modules
 
-## Contributing
+You can test each module separately if needed.
 
-Contributions to the Application Launcher Chatbot project are welcome. Feel free to fork the repository, make improvements, and submit a pull request with your changes.
+- **Whisper Module**:
+  ```sh
+  python whisper_module.py
+  ```
+  
+- **Groq Module**:
+  ```sh
+  python groq_module.py "What is the capital of France?"
+  ```
+  
+- **TTS Module**:
+  ```sh
+  python tts_module.py "Hello, how can I assist you today?"
+  ```
+
+## Project Structure
+
+```
+├── main.py
+├── whisper_module.py
+├── groq_module.py
+├── tts_module.py
+└── README.md
+```
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+---
