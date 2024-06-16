@@ -17,7 +17,7 @@ def main_loop():
         # Choose which to run
         if (file_name == "apps.py"):
             apps.user_prompt(transcribed_text)
-            continue
+            break #(to while??) I want loop to continue
 
         else:
             # Get assistant's response
