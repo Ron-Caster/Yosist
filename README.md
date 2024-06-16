@@ -1,7 +1,12 @@
 
 # Voice Assistant
 
-## IMPORTANT: - Get Groq API Key from https://console.groq.com/keys /n - Add Groq API Key to Environment variables
+## IMPORTANT 
+1) Get Groq API Key from [Groq Website](https://console.groq.com/keys)
+2) Add Groq API Key to Environmental Variables: GROQ_API_KEY=YOUR_API_KEY_HERE
+ 
+   ![image](https://github.com/Ron-Caster/Yosist/assets/56224323/7c56d271-a4c7-4a85-9d34-5056b2690433)
+
 
 This project implements a voice assistant that uses speech-to-text (STT) for recognizing spoken queries, a large language model (LLM) for generating responses, and text-to-speech (TTS) for vocalizing the responses. The components are modularized into three separate scripts focusing on audio recording and transcription, querying a language model, and text-to-speech synthesis.
 
