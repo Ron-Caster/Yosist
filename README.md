@@ -71,10 +71,12 @@ You can test each module separately if needed.
 ## Project Structure
 
 ```
-├── main.py
+main.py
 ├── whisper_module.py
 ├── groq_module.py
 ├── tts_module.py
+├── intent_module.py
+├── apps.py
 └── README.md
 ```
 
