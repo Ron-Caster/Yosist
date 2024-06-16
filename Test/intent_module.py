@@ -1,4 +1,3 @@
-
 from groq import Groq
 import os
 import json
@@ -12,12 +11,6 @@ def get_pyfile(file_name):
     """Select the correct python file as required"""
     if "open" in file_name.lower():
         return json.dumps({"purpose": "Open Apps", "py_file": 'apps.py'})
-    # elif "lakers" in team_name.lower():
-    #     return json.dumps({"game_id": "401585601", "status": 'Final', "home_team": "Los Angeles Lakers", "home_team_score": 121, "away_team": "Golden State Warriors", "away_team_score": 128})
-    # elif "nuggets" in team_name.lower():
-    #     return json.dumps({"game_id": "401585577", "status": 'Final', "home_team": "Miami Heat", "home_team_score": 88, "away_team": "Denver Nuggets", "away_team_score": 100})
-    # elif "heat" in team_name.lower():
-    #     return json.dumps({"game_id": "401585577", "status": 'Final', "home_team": "Miami Heat", "home_team_score": 88, "away_team": "Denver Nuggets", "away_team_score": 100})
     else:
         return json.dumps({"file_name": file_name, "py_file": "groq_module.py"})
 
@@ -92,6 +85,7 @@ def run_conversation(user_prompt):
         )  # get a new response from the model where it can see the function response
         return second_response.choices[0].message.content
 
-user_prompt = "Who is known as the father of nation of India"
-print(run_conversation(user_prompt))
-
+def get_pyfile_name(user_prompt):
+    response_content = run_conversation(user_prompt)
+    response_json = json.loads(response_content)
+    return response_json['py_file']
