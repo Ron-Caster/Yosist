@@ -3,6 +3,7 @@ import whisper_module
 import groq_module
 import tts_module
 import intent_module
+import apps
 
 def main_loop():
     while True:
