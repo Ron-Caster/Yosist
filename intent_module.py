@@ -1,3 +1,4 @@
+import sys
 from groq import Groq
 import os
 import json
@@ -5,8 +6,6 @@ import json
 client = Groq()
 MODEL = 'llama3-70b-8192'
 
-
-# Example dummy function hard coded to return the score of an NBA game
 def get_pyfile(file_name):
     """Select the correct python file as required"""
     if "open" in file_name.lower():
@@ -16,10 +15,10 @@ def get_pyfile(file_name):
 
 def run_conversation(user_prompt):
     # Step 1: send the conversation and available functions to the model
-    messages=[
+    messages = [
         {
             "role": "system",
-            "content": "You are a function calling LLM that uses the data extracted from the get_pyfile function to answer questions around which python file to choose as per the query. If the query is about to open apps like chrome, firefox or something - give apps.py as output else give groq_module.py. Include only py_file in your response."
+            "content": "You are a function calling LLM that uses the data extracted from the get_pyfile function to answer questions around which python file to choose as per the query. If the query is about to open apps like chrome, firefox or something - give apps.py as output else give groq_module.py. Include only value of py_file in your response: either groq_module.py or apps.py must be the response. Nothing else or nothing more should be added to the answer."
         },
         {
             "role": "user",
@@ -55,6 +54,7 @@ def run_conversation(user_prompt):
 
     response_message = response.choices[0].message
     tool_calls = response_message.tool_calls
+
     # Step 2: check if the model wanted to call a function
     if tool_calls:
         # Step 3: call the function
@@ -63,6 +63,7 @@ def run_conversation(user_prompt):
             "get_pyfile": get_pyfile,
         }  # only one function in this example, but you can have multiple
         messages.append(response_message)  # extend conversation with assistant's reply
+
         # Step 4: send the info for each function call and function response to the model
         for tool_call in tool_calls:
             function_name = tool_call.function.name
@@ -85,7 +86,9 @@ def run_conversation(user_prompt):
         )  # get a new response from the model where it can see the function response
         return second_response.choices[0].message.content
 
-def get_pyfile_name(user_prompt):
-    response_content = run_conversation(user_prompt)
-    response_json = json.loads(response_content)
-    return response_json['py_file']
+# Modify to get user_query from sys.argv[1] if available
+user_query = sys.argv[1] if len(sys.argv) > 1 else "Hello"
+
+# Return the result of run_conversation
+result = run_conversation(user_query)
+print(result)  # Print the result for demonstration

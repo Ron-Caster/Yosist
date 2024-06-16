@@ -1,4 +1,3 @@
-# main.py
 import whisper_module
 import groq_module
 import tts_module
@@ -11,14 +10,14 @@ def main_loop():
         transcribed_text = whisper_module.record_and_transcribe()
         print(f"Transcribed Text: {transcribed_text}")
 
-        # Get users's intent
-        file_name = intent_module.ask_groq(transcribed_text) #implement correct function
+        # Get user's intent
+        file_name = intent_module.get_pyfile_name(transcribed_text)
         print(f"File Name: {file_name}")
 
         # Choose which to run
-        if (file_name == "apps.py"):
-            apps.user_prompt(transcribed_text)
-            break #(to while??) I want loop to continue
+        if file_name == "apps.py":
+            apps.run_conversation(transcribed_text)
+            continue
 
         else:
             # Get assistant's response
