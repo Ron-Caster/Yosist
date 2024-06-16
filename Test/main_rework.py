@@ -12,7 +12,7 @@ def main_loop():
         print(f"Transcribed Text: {transcribed_text}")
 
         # Get users's intent
-        file_name = intent_module.ask_groq(transcribed_text)
+        file_name = intent_module.ask_groq(transcribed_text) #implement correct function
         print(f"File Name: {file_name}")
 
         # Choose which to run
