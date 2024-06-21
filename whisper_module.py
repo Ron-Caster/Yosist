@@ -2,18 +2,25 @@
 import pyaudio
 import wave
 import whisper
+import keyboard  # pip install keyboard
+import pyautogui  # pip install pyautogui
 
 # Constants for audio recording
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
 RATE = 16000
 CHUNK = 1024
-RECORD_SECONDS = 5
 WAVE_OUTPUT_FILENAME = "output.wav"
 
 # Load the Whisper model once
-whisper_model = whisper.load_model("small.en")
+whisper_model = whisper.load_model("base.en")  # Use tiny.en for smallest English Model, base.en, small.en are the other ones.
 
+# Function to handle transcription
+def transcribe_audio(filename):
+    result = whisper_model.transcribe(filename)
+    return result["text"]
+
+# Function to record audio
 def record_audio():
     audio = pyaudio.PyAudio()
 
@@ -21,12 +28,14 @@ def record_audio():
     stream = audio.open(format=FORMAT, channels=CHANNELS,
                         rate=RATE, input=True,
                         frames_per_buffer=CHUNK)
-    print("Recording...")
+    print("Recording... Press Caps Lock to stop and transcribe.")
 
     frames = []
-    for _ in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
+    while True:
         data = stream.read(CHUNK)
         frames.append(data)
+        if keyboard.is_pressed('capslock'):
+            break
 
     print("Finished recording.")
 
@@ -44,10 +53,6 @@ def record_audio():
     waveFile.close()
 
     return WAVE_OUTPUT_FILENAME
-
-def transcribe_audio(filename):
-    result = whisper_model.transcribe(filename)
-    return result["text"]
 
 def record_and_transcribe():
     audio_filename = record_audio()
