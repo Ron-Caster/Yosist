@@ -23,6 +23,19 @@ def main_loop():
             assistant_response = groq_module.ask_groq(transcribed_text)
             print(f"Assistant Response: {assistant_response}")
 
+        # Check if a specific language is mentioned
+        if "language" in transcribed_text.lower():
+            language = transcribed_text.split("language")[-1].strip()
+            if language.lower() == "english":
+                # Perform actions for English language
+                print("Performing actions for English language")
+            else:
+                # Perform actions for the specified language
+                print(f"Performing actions for {language} language")
+        else:
+            # Default to English language
+            print("Performing actions for English language")
+
         # Speak the assistant's response
         tts_module.speak_text(assistant_response)
 

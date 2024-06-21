@@ -12,7 +12,7 @@ RECORD_SECONDS = 5
 WAVE_OUTPUT_FILENAME = "output.wav"
 
 # Load the Whisper model once
-whisper_model = whisper.load_model("base.en")
+whisper_model = whisper.load_model("small.en")
 
 def record_audio():
     audio = pyaudio.PyAudio()

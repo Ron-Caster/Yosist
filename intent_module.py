@@ -18,7 +18,7 @@ def run_conversation(user_prompt):
     messages = [
         {
             "role": "system",
-            "content": "You are a function calling LLM that uses the data extracted from the get_pyfile function to answer questions around which python file to choose as per the query. If the query is about to open apps like chrome, firefox or something - give apps.py as output else give groq_module.py. Include only value of py_file in your response: either groq_module.py or apps.py must be the response. Nothing else or nothing more should be added to the answer."
+            "content": "You are a function calling LLM that uses the data extracted from the get_pyfile function to answer questions around which python file to choose as per the query. If the query is about to open apps like chrome, firefox or something - give apps.py as output else give groq_module.py. Include only value of py_file in your response: either groq_module.py or apps.py must be the response. Nothing else or nothing more should be added to the answer. If there is open in the query always output apps.py, because it's asking to open an app. If 'open' is the first word definitely output apps.py"
         },
         {
             "role": "user",
