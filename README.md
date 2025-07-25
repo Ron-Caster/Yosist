@@ -1,5 +1,6 @@
 
-# Your Assistant - Yosist
+# LAMA: Your Assistant (Yosist)
+### "LAMA. Take us to the Stratosphere"
 
 This project implements an AI Voice Assistant to open Windows Applications and Utilizes Generative AI to Answer Queries (As of now)
 
